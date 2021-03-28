@@ -1,8 +1,12 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-6">
   <div class="container-fluid">
     <div class="header-body">
+      <label class="switch">
+        <input type="checkbox" (change)="callme()" checked>
+        <span class="slider round"></span>
+      </label>
       <!-- Card stats -->
-      <div class="row">
+      <div class="row" [hidden]="!showStates">
         <div class="col-xl-3 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
