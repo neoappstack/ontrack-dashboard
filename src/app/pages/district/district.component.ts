@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-district',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DistrictComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   ngOnInit(): void {
+  }
+
+  removeDisctict(id) {
+    this.toastr.error( 'Disctrict with id ' + id + " has been removed.",'District Master');
   }
 
 }

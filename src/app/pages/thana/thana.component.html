@@ -7,10 +7,10 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">Thana Master</h3>
+              <h3 class="mb-0">Thana List</h3>
             </div>
             <div class="col-4 text-right">
-              <a href="#!" class="btn btn-primary">Add New Thana</a>
+              <a [routerLink]="['/thana/create']" class="btn btn-primary">Add New Thana</a>
             </div>
           </div>
         </div>
@@ -37,8 +37,8 @@
                     Test District
                   </td>
                   <td>
-                    <a href="#!" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="#!" class="btn btn-sm btn-primary">Remore</a>
+                    <a [routerLink]="['/thana/edit/1']" class="btn btn-sm btn-primary">Edit</a>
+                    <a (click)="removeThana(1)" class="btn btn-sm btn-primary">Remove</a>
                   </td>
                 </tr>
               </tbody>

@@ -9,15 +9,44 @@ import { UsersComponent } from 'src/app/pages/users/users.component';
 import { ThanaComponent } from 'src/app/pages/thana/thana.component';
 import { DistrictComponent } from 'src/app/pages/district/district.component';
 import { TaskComponent } from 'src/app/pages/task/task.component';
+import { SubdivisionComponent } from 'src/app/pages/subdivision/subdivision.component';
+import { CreateEditDistrictComponent } from 'src/app/pages/district/create-edit-district/create-edit-district.component';
+import { CreateEditSubdivisionComponent } from 'src/app/pages/subdivision/create-edit-subdivision/create-edit-subdivision.component';
+import { CreateEditThanaComponent } from 'src/app/pages/thana/create-edit-thana/create-edit-thana.component';
+import { CreateEditUserComponent } from 'src/app/pages/users/create-edit-user/create-edit-user.component';
+import { RoleComponent } from 'src/app/pages/role/role.component';
+import { AuthorityComponent } from 'src/app/pages/authority/authority.component';
+import { TaskTreeComponent } from 'src/app/pages/task-tree/task-tree.component';
+import { CreateEditRoleComponent } from 'src/app/pages/role/create-edit-role/create-edit-role.component';
+import { CreateEditAuthorityComponent } from 'src/app/pages/authority/create-edit-authority/create-edit-authority.component';
+import { CreateEditTaskComponent } from 'src/app/pages/task/create-edit-task/create-edit-task.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'district',       component: DistrictComponent },
-    { path: 'task',           component: TaskComponent },
-    { path: 'thana',          component: ThanaComponent },
-    { path: 'users',          component: UsersComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'tables',         component: TablesComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent }
+    { path: 'dashboard',            component: DashboardComponent },
+    { path: 'district',             component: DistrictComponent },
+    { path: 'district/create',      component: CreateEditDistrictComponent },
+    { path: 'district/edit/:id',    component: CreateEditDistrictComponent },
+    { path: 'subdivision',          component: SubdivisionComponent},
+    { path: 'subdivision/create',   component: CreateEditSubdivisionComponent },
+    { path: 'subdivision/edit/:id', component: CreateEditSubdivisionComponent },
+    { path: 'task',                 component: TaskComponent },
+    { path: 'task/create',          component: CreateEditTaskComponent },
+    { path: 'task/edit/:id',        component: CreateEditTaskComponent },
+    { path: 'task-tree',            component: TaskTreeComponent },
+    { path: 'thana',                component: ThanaComponent },
+    { path: 'thana/create',         component: CreateEditThanaComponent },
+    { path: 'thana/edit/:id',       component: CreateEditThanaComponent },
+    { path: 'role',                 component: RoleComponent },
+    { path: 'role/create',          component: CreateEditRoleComponent },
+    { path: 'role/edit/:id',        component: CreateEditRoleComponent },
+    { path: 'authority',            component: AuthorityComponent },
+    { path: 'authority/create',     component: CreateEditAuthorityComponent },
+    { path: 'authority/edit/:id',   component: CreateEditAuthorityComponent },
+    { path: 'users',                component: UsersComponent },
+    { path: 'users/create',         component: CreateEditUserComponent },
+    { path: 'users/edit/:id',       component: CreateEditUserComponent },
+    { path: 'user-profile',         component: UserProfileComponent },
+    { path: 'tables',               component: TablesComponent },
+    { path: 'icons',                component: IconsComponent },
+    { path: 'maps',                 component: MapsComponent }
 ];

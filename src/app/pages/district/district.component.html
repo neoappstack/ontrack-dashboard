@@ -7,10 +7,10 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">District Master</h3>
+              <h3 class="mb-0">District List</h3>
             </div>
             <div class="col-4 text-right">
-              <a href="#!" class="btn btn-primary">Add New Thana</a>
+              <a [routerLink]="['/district/create']" class="btn btn-primary">Add New District</a>
             </div>
           </div>
         </div>
@@ -36,9 +36,9 @@
                   <td>
                     Test District
                   </td>
-                  <td>
-                    <a href="#!" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="#!" class="btn btn-sm btn-primary">Remore</a>
+                  <td class="text-center">
+                    <a [routerLink]="['/district/edit/1']" class="btn btn-sm btn-primary">Edit</a>
+                    <a (click)="removeDisctict(1)" class="btn btn-sm btn-primary">Remove</a>
                   </td>
                 </tr>
               </tbody>
