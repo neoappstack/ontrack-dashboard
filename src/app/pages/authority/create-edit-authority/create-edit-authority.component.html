@@ -13,20 +13,21 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="form">
+            <input type="hidden" id="input-first-name" class="form-control form-control-alternative" placeholder="description" value="" formControlName="id">
             <h6 class="heading-small text-muted mb-4">Authority information</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Authority Code</label>
-                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Thana Code" value="">
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Authority Code" value="" formControlName="code">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-email">Authority Name</label>
-                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="Thana Name">
+                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="Authority Name" formControlName="name">
                   </div>
                 </div>
               </div>
@@ -34,7 +35,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Authority Description</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="description" value="" formControlName="description">
                   </div>
                 </div>
               </div>
@@ -42,13 +43,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Created By</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="createdBy" value="" formControlName="createdBy">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Creation TimeStamp</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="createdDate" value="" formControlName="createdDate">
                   </div>
                 </div>
               </div>
@@ -56,13 +57,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Modified By</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="modifiedBy" value="" formControlName="lastModifiedBy">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Modifaication TimeStamp</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="" formControlName="lastModifiedDate">
                   </div>
                 </div>
               </div>
@@ -70,10 +71,10 @@
             <hr class="my-4" />
             <div class="row">
               <div class="col-lg-6">
-                <a [routerLink]="['/district']" class="btn btn-primary btn-block">Clear Data</a>
+                <a class="btn btn-primary btn-block">Clear Data</a>
               </div>
               <div class="col-lg-6">
-                <a [routerLink]="['/district']" class="btn btn-primary btn-block">Save District</a>
+                <button class="btn btn-primary btn-block" (click)="onSubmit()" [disabled]="!form.valid">Save District</button>
               </div>
             </div>
           </form>

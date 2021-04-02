@@ -26,18 +26,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let user of userList">
                   <th scope="row">
-                    /argon/
+                    {{user.username}}
                   </th>
                   <td>
-                    4,569
+                    {{user.firstName}}
                   </td>
                   <td>
-                    340
+                    {{user.designation}}
                   </td>
                   <td class="text-center">
-                    <a [routerLink]="['/users/edit/1']" class="btn btn-sm btn-primary">Edit</a>
+                    <a [routerLink]="['/users/edit/',user.id]" class="btn btn-sm btn-primary">Edit</a>
                     <a href="#!" class="btn btn-sm btn-primary">Remore</a>
                   </td>
                 </tr>

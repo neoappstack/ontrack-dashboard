@@ -1,7 +1,9 @@
+import { User } from './../../_models/user';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,12 +14,18 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  public currentUser: User;
+  constructor(
+    location: Location,
+    private element: ElementRef,
+    private router: Router,
+    private authenticationService: AuthenticationService) {
     this.location = location;
   }
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.currentUser = this.authenticationService.currentUserValue;
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -31,6 +39,11 @@ export class NavbarComponent implements OnInit {
         }
     }
     return 'Dashboard';
+  }
+
+  logout(){
+    this.authenticationService.logout();
+     this.router.navigate(['login']);
   }
 
 }

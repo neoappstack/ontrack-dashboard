@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -29,6 +29,11 @@ import { TaskTreeComponent } from './pages/task-tree/task-tree.component';
 import { CreateEditRoleComponent } from './pages/role/create-edit-role/create-edit-role.component';
 import { CreateEditAuthorityComponent } from './pages/authority/create-edit-authority/create-edit-authority.component';
 import { CreateEditTaskComponent } from './pages/task/create-edit-task/create-edit-task.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -38,6 +43,10 @@ import { CreateEditTaskComponent } from './pages/task/create-edit-task/create-ed
     HttpClientModule,
     DataTablesModule,
     ComponentsModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    BrowserModule,
+    ReactiveFormsModule,
+    NgxSpinnerModule,
     NgbModule,
     RouterModule,
     AppRoutingModule,
@@ -63,7 +72,11 @@ import { CreateEditTaskComponent } from './pages/task/create-edit-task/create-ed
     CreateEditAuthorityComponent,
     CreateEditTaskComponent
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

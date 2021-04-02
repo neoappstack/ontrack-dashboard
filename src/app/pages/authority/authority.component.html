@@ -26,19 +26,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let authority of authorities">
                   <th scope="row">
-                    /argon/
+                    {{authority.code}}
                   </th>
                   <td>
-                    4,569
+                    {{authority.name}}
                   </td>
                   <td>
-                    340
+                    {{authority.description}}
                   </td>
                   <td>
-                    <a [routerLink]="['/authority/edit/1']" class="btn btn-sm btn-primary">Edit</a>
-                    <a (click)="removeAuthority(1)" class="btn btn-sm btn-primary">Remove</a>
+                    <a [routerLink]="['/authority/edit/',authority.id]" class="btn btn-sm btn-primary">Edit</a>
+                    <a (click)="removeAuthority(authority.id)" class="btn btn-sm btn-primary">Remove</a>
                   </td>
                 </tr>
               </tbody>
