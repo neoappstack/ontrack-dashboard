@@ -19,26 +19,30 @@
             <table datatable class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">User ID</th>
-                  <th scope="col">User Name</th>
-                  <th scope="col">Designation</th>
+                  <th scope="col">Subdivision Code</th>
+                  <th scope="col">Subdivision Name</th>
+                  <th scope="col">District</th>
+                  <th scope="col">State</th>
                   <th scope="col">Option</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let subdivision of subdivisionList">
                   <th scope="row">
-                    /argon/
+                    {{subdivision.code}}
                   </th>
                   <td>
-                    4,569
+                    {{subdivision.name}}
                   </td>
                   <td>
-                    340
+                    {{subdivision.districtByOne.name}}
                   </td>
                   <td>
-                    <a [routerLink]="['/subdivision/edit/1']" class="btn btn-sm btn-primary">Edit</a>
-                    <a (click)="removeSubdivision(1)" class="btn btn-sm btn-primary">Remove</a>
+                    {{subdivision.state}}
+                  </td>
+                  <td>
+                    <a [routerLink]="['/subdivision/edit/',subdivision.id]" class="btn btn-sm btn-primary">Edit</a>
+                    <a (click)="removeSubdivision(subdivision.id)" class="btn btn-sm btn-primary">Remove</a>
                   </td>
                 </tr>
               </tbody>

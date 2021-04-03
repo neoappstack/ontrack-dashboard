@@ -1,3 +1,5 @@
+import { Thana } from './../../_models/thana';
+import { ThanaService } from './../../_services/thana.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
@@ -8,12 +10,25 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ThanaComponent implements OnInit {
 
-  constructor(private toastr: ToastrService) { }
+  thanaList: Thana[];
+
+  constructor(
+    private toastr: ToastrService,
+    private thanaService: ThanaService
+    ) {
+
+     }
 
   ngOnInit(): void {
+      this.thanaService.list().subscribe((thanaList: Thana[]) => {
+        this.thanaList = thanaList;
+      });
   }
 
   removeThana(id) {
-    this.toastr.error( 'Thana with id ' + id + " has been removed.",'Thana Master');
+    this.thanaService.remove(id).subscribe((removedId: Number) => {
+      this.thanaList = this.thanaList.filter(item => item.id !== id);
+      this.toastr.error( 'Thana with id ' + removedId + " has been removed.",'Thana Master');
+    });
   }
 }

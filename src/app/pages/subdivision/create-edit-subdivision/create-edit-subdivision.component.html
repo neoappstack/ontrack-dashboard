@@ -13,20 +13,21 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="form">
             <h6 class="heading-small text-muted mb-4">Subdivision information</h6>
+            <input type="hidden" id="input-first-name" class="form-control form-control-alternative" placeholder="description" value="" formControlName="id">
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Subdivision Code</label>
-                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Thana Code" value="">
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Subdivision Code" value="" formControlName="code">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-email">Subdivision Name</label>
-                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="Thana Name">
+                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="Subdivision Name" formControlName="name">
                   </div>
                 </div>
               </div>
@@ -34,13 +35,42 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">District</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <ng-multiselect-dropdown [placeholder]="'Select District'" [(ngModel)]="district" [settings]="dropdownSettings" [data]="districtList" (onSelect)="onDistrictItemSelect($event)" formControlName="district">
+                    </ng-multiselect-dropdown>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">State</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="" disabled="disabled">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="" formControlName="state">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Created By</label>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="createdBy" value="" formControlName="createdBy">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Creation TimeStamp</label>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="createdDate" value="" formControlName="createdDate">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Modified By</label>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="modifiedBy" value="" formControlName="lastModifiedBy">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Modifaication TimeStamp</label>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="" formControlName="lastModifiedDate">
                   </div>
                 </div>
               </div>
@@ -53,7 +83,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-address">Address</label>
-                    <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+                    <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text" formControlName="address">
                   </div>
                 </div>
               </div>
@@ -61,19 +91,19 @@
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label" for="input-city">City</label>
-                    <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City Name" value="">
+                    <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City Name" value="" formControlName="city">
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label" for="input-country">Postal code</label>
-                    <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code">
+                    <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code" formControlName="postalCode">
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label" for="input-country">Contact Number</label>
-                    <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Phone Number" value="">
+                    <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Phone Number" value="" formControlName="phoneNumber">
                   </div>
                 </div>
               </div>
@@ -84,7 +114,7 @@
             <div class="pl-lg-4">
               <div class="form-group">
                 <label>Other Info</label>
-                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words ..." name="text-description"></textarea>
+                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words ..." name="text-description" formControlName="description"></textarea>
               </div>
             </div>
             <hr class="my-4" />
@@ -93,7 +123,7 @@
                 <a [routerLink]="['/district']" class="btn btn-primary btn-block">Clear Data</a>
               </div>
               <div class="col-lg-6">
-                <a [routerLink]="['/district']" class="btn btn-primary btn-block">{{pageName}}</a>
+                <button class="btn btn-primary btn-block" (click)="onSubmit()" [disabled]="!form.valid">{{pageName}}</button>
               </div>
             </div>
           </form>

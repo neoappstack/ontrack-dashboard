@@ -13,20 +13,21 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="form">
+            <input type="hidden" id="input-first-name" class="form-control form-control-alternative" placeholder="description" value="" formControlName="id">
             <h6 class="heading-small text-muted mb-4">District information</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">District Code</label>
-                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Thana Code" value="">
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="District Code" value="" formControlName="code">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-email">District Name</label>
-                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="Thana Name">
+                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="District Name" formControlName="name">
                   </div>
                 </div>
               </div>
@@ -34,7 +35,37 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">State</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <select name="cars" id="cars" class="form-control form-control-alternative" placeholder="Select State" formControlName="state">
+                      <option *ngFor="let stateName of stateList" [value]="stateName">{{stateName}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Created By</label>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="createdBy" value="" formControlName="createdBy">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Creation TimeStamp</label>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="createdDate" value="" formControlName="createdDate">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Modified By</label>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="modifiedBy" value="" formControlName="lastModifiedBy">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Modifaication TimeStamp</label>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="" formControlName="lastModifiedDate">
                   </div>
                 </div>
               </div>
@@ -45,7 +76,7 @@
             <div class="pl-lg-4">
               <div class="form-group">
                 <label>Other Info</label>
-                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words ..." name="text-description"></textarea>
+                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words ..." name="text-description" formControlName="description"></textarea>
               </div>
             </div>
             <hr class="my-4" />
@@ -54,7 +85,7 @@
                 <a [routerLink]="['/district']" class="btn btn-primary btn-block">Clear Data</a>
               </div>
               <div class="col-lg-6">
-                <a [routerLink]="['/district']" class="btn btn-primary btn-block">{{pageName}}</a>
+                <button class="btn btn-primary btn-block" (click)="onSubmit()" [disabled]="!form.valid">{{pageName}}</button>
               </div>
             </div>
           </form>

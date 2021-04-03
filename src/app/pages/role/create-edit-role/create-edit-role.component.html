@@ -8,25 +8,26 @@
               <h3 class="mb-0">{{pageName}}</h3>
             </div>
             <div class="col-4 text-right">
-              <a [routerLink]="['/authority']" class="btn btn-primary">Back to Role List</a>
+              <a [routerLink]="['/role']" class="btn btn-primary">Back to Role List</a>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="form">
             <h6 class="heading-small text-muted mb-4">Role information</h6>
+            <input type="hidden" id="input-first-name" class="form-control form-control-alternative" placeholder="description" value="" formControlName="id">
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Role Code</label>
-                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Thana Code" value="">
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Role Code" value="" formControlName="code">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-email">Role Name</label>
-                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="Thana Name">
+                    <input type="text" id="input-name" class="form-control form-control-alternative" placeholder="Role Name" formControlName="name">
                   </div>
                 </div>
               </div>
@@ -34,42 +35,43 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">Role Description</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <label class="form-control-label" for="input-Description">Role Description</label>
+                    <input type="text" id="input-Description" class="form-control form-control-alternative" placeholder="Role Description" value="" formControlName="description">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Authorities</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <ng-multiselect-dropdown [placeholder]="'Authorities'" [(ngModel)]="authorities" [settings]="dropdownSettings" [data]="authorityList" formControlName="authorities">
+                    </ng-multiselect-dropdown>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">Created By</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <label class="form-control-label" for="input-createdBy">Created By</label>
+                    <input type="text" id="input-createdBy" class="form-control form-control-alternative" placeholder="Created By" value="" formControlName="createdBy">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">Creation TimeStamp</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <label class="form-control-label" for="input-createdDate">Creation TimeStamp</label>
+                    <input type="text" id="input-createdDate" class="form-control form-control-alternative" placeholder="Creation TimeStamp" value="" formControlName="createdDate">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">Modified By</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <label class="form-control-label" for="input-lastModifiedBy">Modified By</label>
+                    <input type="text" id="input-lastModifiedBy" class="form-control form-control-alternative" placeholder="Modified By" value="" formControlName="lastModifiedBy">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">Modifaication TimeStamp</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <label class="form-control-label" for="input-lastModifiedDate">Modifaication TimeStamp</label>
+                    <input type="text" id="input-lastModifiedDate" class="form-control form-control-alternative" placeholder="Modifaication TimeStamp" value="" formControlName="lastModifiedDate">
                   </div>
                 </div>
               </div>
@@ -77,10 +79,10 @@
             <hr class="my-4" />
             <div class="row">
               <div class="col-lg-6">
-                <a [routerLink]="['/district']" class="btn btn-primary btn-block">Clear Data</a>
+                <a class="btn btn-primary btn-block">Clear Data</a>
               </div>
               <div class="col-lg-6">
-                <a [routerLink]="['/district']" class="btn btn-primary btn-block">{{pageName}}</a>
+                <button class="btn btn-primary btn-block" (click)="onSubmit()" [disabled]="!form.valid">Save Role</button>
               </div>
             </div>
           </form>

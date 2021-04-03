@@ -26,19 +26,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let role of roles">
                   <th scope="row">
-                    /argon/
+                    {{role.code}}
                   </th>
                   <td>
-                    4,569
+                    {{role.name}}
                   </td>
                   <td>
-                    340
+                    {{role.description}}
                   </td>
                   <td>
-                    <a [routerLink]="['/role/edit/1']" class="btn btn-sm btn-primary">Edit</a>
-                    <a (click)="removeRole(1)" class="btn btn-sm btn-primary">Remove</a>
+                    <a [routerLink]="['/role/edit/',role.id]" class="btn btn-sm btn-primary">Edit</a>
+                    <a (click)="removeRole(role.id)" class="btn btn-sm btn-primary">Remove</a>
                   </td>
                 </tr>
               </tbody>

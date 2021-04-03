@@ -122,7 +122,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Roles</label>
-                    <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings" [data]="dropdownList" formControlName="city" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                    <ng-multiselect-dropdown [placeholder]="'Select Roles'" [(ngModel)]="roles" [settings]="dropdownSettings" [data]="roleList" formControlName="roles" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
                     </ng-multiselect-dropdown>
                   </div>
                 </div>

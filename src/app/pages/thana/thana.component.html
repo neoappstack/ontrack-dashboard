@@ -19,26 +19,30 @@
             <table datatable class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">Thana ID</th>
+                  <th scope="col">Thana Code</th>
                   <th scope="col">Thana Name</th>
                   <th scope="col">District</th>
+                  <th scope="col">Subdivision</th>
                   <th scope="col">Option</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let thana of thanaList">
                   <th scope="row">
-                    Test Thana ID
+                    {{thana.code}}
                   </th>
                   <td>
-                    Test Thana Name
+                    {{thana.name}}
                   </td>
                   <td>
-                    Test District
+                    {{thana.district}}
                   </td>
                   <td>
-                    <a [routerLink]="['/thana/edit/1']" class="btn btn-sm btn-primary">Edit</a>
-                    <a (click)="removeThana(1)" class="btn btn-sm btn-primary">Remove</a>
+                    {{thana.subdivisionByOne.name}}
+                  </td>
+                  <td>
+                    <a [routerLink]="['/thana/edit/',thana.id]" class="btn btn-sm btn-primary">Edit</a>
+                    <a (click)="removeThana(thana.id)" class="btn btn-sm btn-primary">Remove</a>
                   </td>
                 </tr>
               </tbody>

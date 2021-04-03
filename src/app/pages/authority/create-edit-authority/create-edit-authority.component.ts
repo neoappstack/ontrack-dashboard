@@ -43,7 +43,6 @@ export class CreateEditAuthorityComponent implements OnInit {
   }
 
   onSubmit(): void{
-    debugger;
     if(this.id != null){
       this.authorityService.update(this.form.value).subscribe((res: any) => {
           console.log(res);

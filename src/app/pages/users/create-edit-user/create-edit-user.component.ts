@@ -1,3 +1,4 @@
+import { RoleService } from './../../../_services/role.service';
 import { User } from './../../../_models/user';
 import { UserService } from './../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,11 +17,13 @@ export class CreateEditUserComponent implements OnInit {
   id: string
   pageName: string
   form:FormGroup;
-  dropdownList = [];
-  myselect = [];
+  roleList = [];
+  roles = [];
   dropdownSettings: IDropdownSettings = {};
 
-  constructor(private route: ActivatedRoute,private userService: UserService,
+  constructor(private route: ActivatedRoute,
+    private userService: UserService,
+    private roleService: RoleService,
     private spinner: NgxSpinnerService) {
       this.spinner.show();
     }
@@ -28,48 +31,39 @@ export class CreateEditUserComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.pageName = (this.id == null) ? "Create New User" : "Edit User";
-
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.myselect = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
+    this.roleService.list().subscribe((roleList: any) => {
+      this.roleList = roleList;
+    })
     this.dropdownSettings = {
       singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
+      idField: 'id',
+      textField: 'name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
       allowSearchFilter: true
     };
-  this.form = new FormGroup({
-    "id": new FormControl(""),
-    "username": new FormControl("", Validators.required),
-    "firstName": new FormControl("", Validators.required),
-    "lastName": new FormControl("", Validators.required),
-    "email": new FormControl("", Validators.required),
-    "designation": new FormControl("", Validators.required),
-    "phoneNumber": new FormControl("", Validators.required),
-    "dateOfBirth": new FormControl("", Validators.required),
-    "dateOfJoining": new FormControl("", Validators.required),
-    "workAddress": new FormControl("", Validators.required),
-    "thana": new FormControl("", Validators.required),
-    "district": new FormControl("", Validators.required),
-    "homeAddress": new FormControl("", Validators.required),
-    "pinCode": new FormControl("", Validators.required),
-     "city": new FormControl(this.myselect, Validators.required),
-  });
+    this.form = new FormGroup({
+      "id": new FormControl(""),
+      "username": new FormControl("", Validators.required),
+      "firstName": new FormControl("", Validators.required),
+      "lastName": new FormControl("", Validators.required),
+      "email": new FormControl("", Validators.required),
+      "designation": new FormControl("", Validators.required),
+      "phoneNumber": new FormControl("", Validators.required),
+      "dateOfBirth": new FormControl("", Validators.required),
+      "dateOfJoining": new FormControl("", Validators.required),
+      "workAddress": new FormControl("", Validators.required),
+      "thana": new FormControl(""),
+      "district": new FormControl(""),
+      "homeAddress": new FormControl("", Validators.required),
+      "pinCode": new FormControl("", Validators.required),
+      "roles": new FormControl(this.roles, Validators.required),
+    });
 
     if(this.id != null){
       this.userService.get(this.id).subscribe((user: User) => {
-        this.form.patchValue(user)
+        this.form.patchValue(user);
+        this.roles = user.roles;
         this.spinner.hide();
       })
     }
@@ -82,7 +76,6 @@ export class CreateEditUserComponent implements OnInit {
   }
 
   onSubmit(): void{
-    debugger;
     if(this.id != null){
       this.userService.update(this.form.value).subscribe((res: any) => {
           console.log(res);

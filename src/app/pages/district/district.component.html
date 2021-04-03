@@ -19,26 +19,26 @@
             <table datatable class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">District ID</th>
+                  <th scope="col">District Code</th>
                   <th scope="col">District Name</th>
                   <th scope="col">State Name</th>
                   <th scope="col">Option</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let district of districts">
                   <th scope="row">
-                    Test Thana ID
+                    {{district.code}}
                   </th>
                   <td>
-                    Test Thana Name
+                    {{district.name}}
                   </td>
                   <td>
-                    Test District
+                    {{district.state}}
                   </td>
                   <td class="text-center">
-                    <a [routerLink]="['/district/edit/1']" class="btn btn-sm btn-primary">Edit</a>
-                    <a (click)="removeDisctict(1)" class="btn btn-sm btn-primary">Remove</a>
+                    <a [routerLink]="['/district/edit/',district.id]" class="btn btn-sm btn-primary">Edit</a>
+                    <a (click)="removeDistrict(district.id)" class="btn btn-sm btn-primary">Remove</a>
                   </td>
                 </tr>
               </tbody>
