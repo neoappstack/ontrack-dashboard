@@ -1,3 +1,4 @@
+import { CreateEditStateComponent } from './../../pages/state/create-edit-state/create-edit-state.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -20,9 +21,13 @@ import { TaskTreeComponent } from 'src/app/pages/task-tree/task-tree.component';
 import { CreateEditRoleComponent } from 'src/app/pages/role/create-edit-role/create-edit-role.component';
 import { CreateEditAuthorityComponent } from 'src/app/pages/authority/create-edit-authority/create-edit-authority.component';
 import { CreateEditTaskComponent } from 'src/app/pages/task/create-edit-task/create-edit-task.component';
+import { StateComponent } from 'src/app/pages/state/state.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',            component: DashboardComponent },
+    { path: 'state',                component: StateComponent },
+    { path: 'state/create',         component: CreateEditStateComponent },
+    { path: 'state/edit/:id',       component: CreateEditStateComponent },
     { path: 'district',             component: DistrictComponent },
     { path: 'district/create',      component: CreateEditDistrictComponent },
     { path: 'district/edit/:id',    component: CreateEditDistrictComponent },

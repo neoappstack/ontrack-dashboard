@@ -1,7 +1,9 @@
+import { DistrictService } from 'src/app/_services/district.service';
+import { StateService } from './../../../_services/state.service';
 import { SubdivisionService } from './../../../_services/subdivision.service';
 import { ThanaService } from './../../../_services/thana.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Thana } from 'src/app/_models/thana';
@@ -15,7 +17,11 @@ export class CreateEditThanaComponent implements OnInit {
 
   id: string;
   pageName: string;
-  subdivision = [];
+  states=[];
+  stateList=[]
+  districts=[]
+  districtList=[];
+  subdivisions = [];
   subdivisionList = [];
   dropdownSettings: IDropdownSettings = {};
   form: FormGroup;
@@ -23,27 +29,37 @@ export class CreateEditThanaComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private thanaService: ThanaService,
+    private stateService: StateService,
+    private router: Router,
+    private districtService: DistrictService,
     private subdivisionService: SubdivisionService) {
 
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.pageName = (this.id == null) ? "Create New Thana" : "Edit Thana";
-
-      this.subdivisionService.list().subscribe((subdivisionList: any) => {
-        this.subdivisionList = subdivisionList;
-      })
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.pageName = (this.id == null) ? "Create New Thana" : "Edit Thana";
       this.dropdownSettings = {
         singleSelection: true,
         idField: 'id',
         textField: 'name',
         allowSearchFilter: true
       };
+      this.stateService.list().subscribe((stateList: any) => {
+        this.stateList = stateList;
+      })
       if(this.id != null){
         this.thanaService.get(this.id).subscribe((thana: Thana) => {
+          this.subdivisions = [thana.subdivision];
+          this.districts = [thana.subdivision.district];
+          this.states = [thana.subdivision.district.state];
           this.form.patchValue(thana);
-          this.subdivision =thana.subdivision;
+          this.districtService.findAllDistrictForState(thana.subdivision.district.state.id).subscribe((districtList: any) => {
+            this.districtList = districtList;
+          });
+          this.subdivisionService.findAllSubdivisionUnderDistrict(thana.subdivision.district.id).subscribe((subdivisionList: any) => {
+            this.subdivisionList = subdivisionList;
+          });
         })
       };
       this.form = new FormGroup({
@@ -51,9 +67,9 @@ export class CreateEditThanaComponent implements OnInit {
         "code": new FormControl("", Validators.required),
         "name": new FormControl("", Validators.required),
         "description": new FormControl("",Validators.required),
-        "subdivision": new FormControl("",Validators.required),
-        "district": new FormControl({value: '', disabled: true}),
-        "state": new FormControl({value: '', disabled: true}),
+        "subdivisions": new FormControl("",Validators.required),
+        "districts": new FormControl("",Validators.required),
+        "states": new FormControl("",Validators.required),
         "address": new FormControl("", Validators.required),
         "city": new FormControl("", Validators.required),
         "postalCode": new FormControl("", Validators.required),
@@ -68,19 +84,31 @@ export class CreateEditThanaComponent implements OnInit {
    onSubmit(): void{
     if(this.id != null){
       this.thanaService.update(this.form.value).subscribe((res: any) => {
-          console.log(res);
+         this.router.navigate(['/thana']);
       })
     }else{
       this.thanaService.create(this.form.value).subscribe((res: any) => {
-          console.log(res);
+          this.router.navigate(['/thana']);
       })
     }
   }
 
+  onStateSelect(item: any) {
+    this.districtService.findAllDistrictForState(item.id).subscribe((districtList: any) => {
+      this.districtList = districtList;
+      this.form.patchValue({"district" : []});
+      this.form.patchValue({"subdivisions" : []});
+    });
+  }
+
+  onDistrictSelect(item: any) {
+    this.subdivisionService.findAllSubdivisionUnderDistrict(item.id).subscribe((subdivisionList: any) => {
+      this.subdivisionList = subdivisionList;
+      this.form.patchValue({"subdivisions" : []});
+    });
+  }
+
   onSubdivisionSelect(item: any) {
-    var selectedSubdivision = this.subdivisionList.find(subdivision => subdivision.id == item.id);
-    this.form.patchValue({"state" : selectedSubdivision.state});
-    this.form.patchValue({"district" : selectedSubdivision.districtByOne.name});
   }
 
 }

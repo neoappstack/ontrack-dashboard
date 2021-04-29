@@ -1,7 +1,8 @@
+import { StateService } from './../../../_services/state.service';
 import { SubdivisionService } from './../../../_services/subdivision.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs';
 import { Subdivision } from 'src/app/_models/subdivision';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -16,14 +17,18 @@ export class CreateEditSubdivisionComponent implements OnInit {
 
   id: string;
   pageName: string;
-  district = [];
+  districts = [];
   districtList = [];
+  states = [];
+  stateList = [];
   dropdownSettings: IDropdownSettings = {};
   form: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private subdivisionService: SubdivisionService,
+    private router: Router,
+    private stateService: StateService,
     private districtService: DistrictService
     ) {
 
@@ -32,32 +37,36 @@ export class CreateEditSubdivisionComponent implements OnInit {
   ngOnInit(): void {
       this.id = this.route.snapshot.paramMap.get('id');
       this.pageName = (this.id == null) ? "Create New Subdivision" : "Edit Subdivision";
-      this.districtService.list().subscribe((districtList: any) => {
-        this.districtList = districtList;
-      })
       this.dropdownSettings = {
         singleSelection: true,
         idField: 'id',
         textField: 'name',
         allowSearchFilter: true
       };
+      this.stateService.list().subscribe((stateList: any) => {
+        this.stateList = stateList;
+      })
       if(this.id != null){
-        this.subdivisionService.get(this.id).subscribe((subdivision: any) => {
+        this.subdivisionService.get(this.id).subscribe((subdivision: Subdivision) => {
           this.form.patchValue(subdivision);
-          this.district =subdivision.district;
+          this.districts = [subdivision.district];
+          this.states = [subdivision.district.state];
+          this.districtService.findAllDistrictForState(subdivision.district.state.id).subscribe((districtList: any) => {
+            this.districtList = districtList;
+          }); 
         })
       };
       this.form = new FormGroup({
         "id": new FormControl(""),
         "code": new FormControl("", Validators.required),
         "name": new FormControl("", Validators.required),
-        "description": new FormControl(""),
-        "district": new FormControl(""),
+        "description": new FormControl("",Validators.required),
+        "districts": new FormControl("",Validators.required),
+        "states": new FormControl("", Validators.required),
         "address": new FormControl("", Validators.required),
         "city": new FormControl("", Validators.required),
         "postalCode": new FormControl("", Validators.required),
         "phoneNumber": new FormControl("", Validators.required),
-        "state": new FormControl("", Validators.required),
         "createdBy": new FormControl({value: '', disabled: true}),
         "createdDate": new FormControl({value: '', disabled: true}),
         "lastModifiedBy": new FormControl({value: '', disabled: true}),
@@ -68,18 +77,20 @@ export class CreateEditSubdivisionComponent implements OnInit {
    onSubmit(): void{
     if(this.id != null){
       this.subdivisionService.update(this.form.value).subscribe((res: any) => {
-          console.log(res);
+          this.router.navigate(['/subdivision']);
       })
     }else{
       this.subdivisionService.create(this.form.value).subscribe((res: any) => {
-          console.log(res);
+          this.router.navigate(['/subdivision']);
       })
     }
   }
 
-  onDistrictItemSelect(item: any) {
-    var selectedDistrict = this.districtList.find(district => district.id == item.id);
-    this.form.patchValue({"state" : selectedDistrict.state});
+  onStateItemSelect(item: any) {
+    this.districtService.findAllDistrictForState(item.id).subscribe((districtList: any) => {
+      this.districtList = districtList;
+      this.form.patchValue({"district" : []});
+    });
   }
 
 }

@@ -1,7 +1,7 @@
 import { Authority } from './../../../_models/authority';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { AuthorityService } from 'src/app/_services/authority.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -17,7 +17,9 @@ export class CreateEditAuthorityComponent implements OnInit {
   pageName: string
   authority: Observable<Authority>;
 
-  constructor(private route: ActivatedRoute,private authorityService: AuthorityService) {}
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private authorityService: AuthorityService) {}
 
   form = new FormGroup({
     "id": new FormControl(""),
@@ -45,11 +47,11 @@ export class CreateEditAuthorityComponent implements OnInit {
   onSubmit(): void{
     if(this.id != null){
       this.authorityService.update(this.form.value).subscribe((res: any) => {
-          console.log(res);
+          this.router.navigate(['/authority']);
       })
     }else{
       this.authorityService.create(this.form.value).subscribe((res: any) => {
-          console.log(res);
+          this.router.navigate(['/authority']);
       })
     }
   }

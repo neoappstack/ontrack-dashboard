@@ -1,7 +1,7 @@
 import { Authority } from './../../../_models/authority';
 import { RoleService } from './../../../_services/role.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Role } from 'src/app/_models/role';
@@ -25,6 +25,7 @@ export class CreateEditRoleComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authorityService: AuthorityService,
+    private router: Router,
     private roleService: RoleService) {
       this.authorityService.list().subscribe((authorityList: Authority[]) => {
         this.authorityList = authorityList;
@@ -65,11 +66,11 @@ export class CreateEditRoleComponent implements OnInit {
   onSubmit(): void{
     if(this.id != null){
       this.roleService.update(this.form.value).subscribe((res: any) => {
-          console.log(res);
+          this.router.navigate(['/role']);
       })
     }else{
       this.roleService.create(this.form.value).subscribe((res: any) => {
-          console.log(res);
+          this.router.navigate(['/role']);
       })
     }
   }

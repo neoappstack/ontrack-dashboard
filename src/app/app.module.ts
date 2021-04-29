@@ -34,6 +34,8 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CreateEditStateComponent } from './pages/state/create-edit-state/create-edit-state.component';
+import { StateComponent } from './pages/state/state.component';
 
 
 @NgModule({
@@ -70,7 +72,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     TaskTreeComponent,
     CreateEditRoleComponent,
     CreateEditAuthorityComponent,
-    CreateEditTaskComponent
+    CreateEditTaskComponent,
+    StateComponent,
+    CreateEditStateComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

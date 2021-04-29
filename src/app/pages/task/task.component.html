@@ -20,7 +20,7 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">Task ID</th>
-                  <th scope="col">Task Description</th>
+                  <th scope="col">Task Code</th>
                   <th scope="col">Create By</th>
                   <th scope="col">Assigned To</th>
                   <th scope="col">Status</th>
@@ -29,12 +29,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let task of taskList">
                   <th scope="row">
-                    Task 1234
+                    {{task.id}}
                   </th>
                   <td>
-                    fasf asdas asdas
+                    {{task.code}}
                   </td>
                   <td>
                     Raja Babu
@@ -49,7 +49,7 @@
                     12/12/2021 12:15:AM
                   </td>
                   <td>
-                    <a [routerLink]="['/task/edit/1']" class="btn btn-sm btn-primary">Edit</a>
+                    <a [routerLink]="['/task/edit/',task.id]" class="btn btn-sm btn-primary">Edit</a>
                     <a href="#!" class="btn btn-sm btn-primary">Assign</a>
                     <a href="#!" class="btn btn-sm btn-primary">Mark Complete</a>
                   </td>

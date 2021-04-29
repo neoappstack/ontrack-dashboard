@@ -1,3 +1,4 @@
+import { State } from './state';
 import { District } from "./district";
 
 export class Subdivision {
@@ -5,9 +6,10 @@ export class Subdivision {
     code: string;
     name: string;
     description: string;
-    district: District[];
-    districtByOne: District;
-    state: string
+    districts: District[];
+    district: District;
+    state: State;
+    states: State[];
     address: string;
     city: string;
     postalCode: string;

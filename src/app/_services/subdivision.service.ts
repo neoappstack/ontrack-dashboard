@@ -1,24 +1,35 @@
-import { Subdivision } from './../_models/subdivision';
+import { Subdivision } from 'src/app/_models/subdivision';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { District } from '../_models/district';
 
 @Injectable({ providedIn: 'root' })
 export class SubdivisionService {
+  findAllSubdivisionUnderDistrict(id: any) {
+    return this.http.get(`${environment.apiUrl}/api/subdivision/findAllSubdivisionUnderDistrict?districtId=`+ id)
+      .pipe(map((data: Subdivision[]) => {
+        return data;
+    }));
+  }
 
   constructor(private http: HttpClient) {
   }
 
   create(subdivision: any) {
+    subdivision.state = subdivision.states[0];
+    subdivision.district = subdivision.districts[0];
     return this.http.post<Subdivision>(`${environment.apiUrl}/api/subdivision/create`, subdivision)
       .pipe(map(subdivisionResponse => {
         return subdivisionResponse;
     }));
   }
 
-  update(subdivision: any) {
+  update(subdivision: Subdivision) {
+    subdivision.state = subdivision.states[0];
+    subdivision.district = subdivision.districts[0];
     return this.http.put<Subdivision>(`${environment.apiUrl}/api/subdivision/update`, subdivision)
       .pipe(map(subdivisionResponse => {
         return subdivisionResponse;

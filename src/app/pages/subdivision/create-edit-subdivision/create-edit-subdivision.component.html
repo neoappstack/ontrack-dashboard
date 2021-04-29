@@ -34,15 +34,16 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">District</label>
-                    <ng-multiselect-dropdown [placeholder]="'Select District'" [(ngModel)]="district" [settings]="dropdownSettings" [data]="districtList" (onSelect)="onDistrictItemSelect($event)" formControlName="district">
+                    <label class="form-control-label" for="input-first-name">State</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select State'" [(ngModel)]="states" [settings]="dropdownSettings" [data]="stateList" (onSelect)="onStateItemSelect($event)" formControlName="states">
                     </ng-multiselect-dropdown>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">State</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="" formControlName="state">
+                    <label class="form-control-label" for="input-first-name">District</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select District'" [(ngModel)]="districts" [settings]="dropdownSettings" [data]="districtList" formControlName="districts">
+                    </ng-multiselect-dropdown>
                   </div>
                 </div>
               </div>

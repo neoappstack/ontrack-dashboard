@@ -11,7 +11,15 @@ export class DistrictService {
   constructor(private http: HttpClient) {
   }
 
+  findAllDistrictForState(id: any) {
+    return this.http.get<District>(`${environment.apiUrl}/api/district/findAllDistrictForState?stateId=` + id)
+      .pipe(map((districtList: any) => {
+        return districtList;
+    }));
+  }
+
   create(district: any) {
+    district.state = district.states[0];
     return this.http.post<District>(`${environment.apiUrl}/api/district/create`, district)
       .pipe(map(districtResponse => {
         return districtResponse;
@@ -19,6 +27,7 @@ export class DistrictService {
   }
 
   update(district: any) {
+    district.state = district.states[0];
     return this.http.put<District>(`${environment.apiUrl}/api/district/update`, district)
       .pipe(map(districtResponse => {
         return districtResponse;

@@ -13,20 +13,21 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
-            <h6 class="heading-small text-muted mb-4">Task information</h6>
+          <form [formGroup]="form">
+            <h6 class="heading-small text-muted mb-4">{{pageName}}</h6>
             <div class="pl-lg-4">
+              <input type="hidden" id="input-first-name" class="form-control form-control-alternative" placeholder="description" value="" formControlName="id">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Task Code</label>
-                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Thana Code" value="">
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Task Code" value="" formControlName="code">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-email">Task Name</label>
-                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="Thana Name">
+                    <input type="text" id="input-email" class="form-control form-control-alternative" placeholder="Task Name" formControlName="name">
                   </div>
                 </div>
               </div>
@@ -34,7 +35,39 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Task Description</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Task Description" value="" formControlName="description">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">District</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select District'" [(ngModel)]="districts" [settings]="dropdownSettings" [data]="districtList" (onSelect)="onDistrictSelect($event)" formControlName="districts">
+                    </ng-multiselect-dropdown>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Subdivision</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select Subdivision'" [(ngModel)]="subdivisions" [settings]="dropdownSettings" [data]="subdivisionList" (onSelect)="onSubdivisionSelect($event)" formControlName="subdivisions">
+                    </ng-multiselect-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Thana</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select Thana'" [(ngModel)]="thanas" [settings]="dropdownSettings" [data]="thanaList" (onSelect)="onThanaSelect($event)" formControlName="thanas">
+                    </ng-multiselect-dropdown>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Assigned To</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select User'" [(ngModel)]="assignedTos" [settings]="dropdownSettings" [data]="assignedToList" formControlName="assignedTos">
+                    </ng-multiselect-dropdown>
                   </div>
                 </div>
               </div>
@@ -42,13 +75,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Created By</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Created By" value="" formControlName="createdBy">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Creation TimeStamp</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Creation TimeStamp" value="" formControlName="createdDate">
                   </div>
                 </div>
               </div>
@@ -56,13 +89,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Modified By</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Last Modified By" value="" formControlName="lastModifiedBy">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Modifaication TimeStamp</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="">
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Modifaication TimeStamp" value="" formControlName="lastModifiedDate">
                   </div>
                 </div>
               </div>
@@ -70,10 +103,10 @@
             <hr class="my-4" />
             <div class="row">
               <div class="col-lg-6">
-                <a [routerLink]="['/district']" class="btn btn-primary btn-block">Clear Data</a>
+                <a [routerLink]="['/task']" class="btn btn-primary btn-block">Clear Data</a>
               </div>
               <div class="col-lg-6">
-                <a [routerLink]="['/district']" class="btn btn-primary btn-block">{{pageName}}</a>
+                <a (click)="onSubmit()" class="btn btn-primary btn-block">{{pageName}}</a>
               </div>
             </div>
           </form>

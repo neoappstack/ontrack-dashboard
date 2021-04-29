@@ -7,10 +7,10 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">District List</h3>
+              <h3 class="mb-0">State List</h3>
             </div>
             <div class="col-4 text-right">
-              <a [routerLink]="['/district/create']" class="btn btn-primary">Add New District</a>
+              <a [routerLink]="['/state/create']" class="btn btn-primary">Add New State</a>
             </div>
           </div>
         </div>
@@ -19,26 +19,22 @@
             <table datatable class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">District Code</th>
-                  <th scope="col">District Name</th>
+                  <th scope="col">State Code</th>
                   <th scope="col">State Name</th>
                   <th scope="col">Option</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let district of districts">
+                <tr *ngFor="let state of states">
                   <th scope="row">
-                    {{district.code}}
+                    {{state.code}}
                   </th>
                   <td>
-                    {{district.name}}
-                  </td>
-                  <td>
-                    {{district.state.name}}
+                    {{state.name}}
                   </td>
                   <td class="text-center">
-                    <a [routerLink]="['/district/edit/',district.id]" class="btn btn-sm btn-primary">Edit</a>
-                    <a (click)="removeDistrict(district.id)" class="btn btn-sm btn-primary">Remove</a>
+                    <a [routerLink]="['/state/edit/',state.id]" class="btn btn-sm btn-primary">Edit</a>
+                    <a (click)="removeState(state.id)" class="btn btn-sm btn-primary">Remove</a>
                   </td>
                 </tr>
               </tbody>

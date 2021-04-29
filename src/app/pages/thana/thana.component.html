@@ -21,6 +21,7 @@
                 <tr>
                   <th scope="col">Thana Code</th>
                   <th scope="col">Thana Name</th>
+                  <th scope="col">State</th>
                   <th scope="col">District</th>
                   <th scope="col">Subdivision</th>
                   <th scope="col">Option</th>
@@ -35,10 +36,13 @@
                     {{thana.name}}
                   </td>
                   <td>
-                    {{thana.district}}
+                    {{thana.subdivision.district.state.name}}
                   </td>
                   <td>
-                    {{thana.subdivisionByOne.name}}
+                    {{thana.subdivision.district.name}}
+                  </td>
+                  <td>
+                    {{thana.subdivision.name}}
                   </td>
                   <td>
                     <a [routerLink]="['/thana/edit/',thana.id]" class="btn btn-sm btn-primary">Edit</a>

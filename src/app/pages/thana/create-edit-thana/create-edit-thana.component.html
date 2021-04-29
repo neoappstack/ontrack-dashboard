@@ -34,15 +34,16 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">Subdivision</label>
-                    <ng-multiselect-dropdown [placeholder]="'Select Subdivision'" [(ngModel)]="subdivision" [settings]="dropdownSettings" [data]="subdivisionList" (onSelect)="onSubdivisionSelect($event)" formControlName="subdivision">
+                    <label class="form-control-label" for="input-first-name">State</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select State'" [(ngModel)]="states" [settings]="dropdownSettings" [data]="stateList" (onSelect)="onStateSelect($event)" formControlName="states">
                     </ng-multiselect-dropdown>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">District</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select District" value="" formControlName="district">
+                    <ng-multiselect-dropdown [placeholder]="'Select District'" [(ngModel)]="districts" [settings]="dropdownSettings" [data]="districtList" (onSelect)="onDistrictSelect($event)" formControlName="districts">
+                    </ng-multiselect-dropdown>
                   </div>
                 </div>
               </div>
@@ -50,7 +51,8 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">State</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Select State" value="" formControlName="state">
+                    <ng-multiselect-dropdown [placeholder]="'Select Subdivision'" [(ngModel)]="subdivisions" [settings]="dropdownSettings" [data]="subdivisionList" (onSelect)="onSubdivisionSelect($event)" formControlName="subdivisions">
+                    </ng-multiselect-dropdown>
                   </div>
                 </div>
               </div>

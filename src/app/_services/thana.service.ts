@@ -1,3 +1,4 @@
+import { Subdivision } from './../_models/subdivision';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,11 +8,20 @@ import { Thana } from '../_models/thana';
 @Injectable({ providedIn: 'root' })
 
 export class ThanaService {
+  findAllThanaUnderSubdivision(id: any) {
+    return this.http.get(`${environment.apiUrl}/api/thana/findAllThanaUnderSubdivision?subdivisionId=`+ id)
+      .pipe(map((data: Subdivision[]) => {
+        return data;
+    }));
+  }
 
   constructor(private http: HttpClient) {
   }
 
-  create(thana: any) {
+  create(thana: Thana) {
+    thana.state = thana.states[0];
+    thana.district = thana.districts[0];
+    thana.subdivision = thana.subdivisions[0];
     return this.http.post<Thana>(`${environment.apiUrl}/api/thana/create`, thana)
       .pipe(map(thanaResponse => {
         return thanaResponse;
@@ -19,6 +29,9 @@ export class ThanaService {
   }
 
   update(thana: any) {
+    thana.state = thana.states[0];
+    thana.district = thana.districts[0];
+    thana.subdivision = thana.subdivisions[0];
     return this.http.put<Thana>(`${environment.apiUrl}/api/thana/update`, thana)
       .pipe(map(thanaResponse => {
         return thanaResponse;
