@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Role } from 'src/app/_models/role';
 import { AuthorityService } from 'src/app/_services/authority.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-edit-role',
@@ -26,13 +27,15 @@ export class CreateEditRoleComponent implements OnInit {
     private route: ActivatedRoute,
     private authorityService: AuthorityService,
     private router: Router,
-    private roleService: RoleService) {
-      this.authorityService.list().subscribe((authorityList: Authority[]) => {
-        this.authorityList = authorityList;
-      });
+    private roleService: RoleService,
+    private spinner: NgxSpinnerService) {
+      this.spinner.show();
   }
 
   ngOnInit(): void {
+    this.authorityService.list().subscribe((authorityList: Authority[]) => {
+        this.authorityList = authorityList;
+    });
     this.id = this.route.snapshot.paramMap.get('id');
     this.pageName = (this.id == null) ? "Create New Role" : "Edit Role";
     this.dropdownSettings = {
@@ -48,7 +51,10 @@ export class CreateEditRoleComponent implements OnInit {
       this.roleService.get(this.id).subscribe((role: any) => {
         this.form.patchValue(role);
         this.authorities = role.authorities;
+        this.spinner.hide();
       })
+    }else{
+      this.spinner.hide();
     }
     this.form = new FormGroup({
       "id": new FormControl(""),

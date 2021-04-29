@@ -2,6 +2,7 @@ import { Thana } from './../../_models/thana';
 import { ThanaService } from './../../_services/thana.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-thana',
@@ -11,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ThanaComponent implements OnInit {
 
   thanaList: Thana[];
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private toastr: ToastrService,
@@ -22,6 +24,7 @@ export class ThanaComponent implements OnInit {
   ngOnInit(): void {
       this.thanaService.list().subscribe((thanaList: Thana[]) => {
         this.thanaList = thanaList;
+        this.dtTrigger.next();
       });
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { Role } from 'src/app/_models/role';
 import { RoleService } from 'src/app/_services/role.service';
 
@@ -12,6 +13,7 @@ import { RoleService } from 'src/app/_services/role.service';
 export class RoleComponent implements OnInit {
 
   roles: Role[];
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private toastr: ToastrService,
@@ -22,6 +24,7 @@ export class RoleComponent implements OnInit {
   ngOnInit(): void {
     this.roleService.list().subscribe((roles: Role[]) => {
       this.roles = roles;
+      this.dtTrigger.next();
     });
   }
 

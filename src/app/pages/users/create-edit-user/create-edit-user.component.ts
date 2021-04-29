@@ -118,6 +118,8 @@ export class CreateEditUserComponent implements OnInit {
         this.roles = user.roles;
         this.spinner.hide();
       })
+    }else{
+      this.spinner.hide();
     }
   }
   onItemSelect(item: any) {

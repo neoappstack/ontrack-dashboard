@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthorityService } from 'src/app/_services/authority.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-authority',
@@ -12,12 +13,14 @@ import { AuthorityService } from 'src/app/_services/authority.service';
 export class AuthorityComponent implements OnInit {
 
   authorities: Authority[];
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private toastr: ToastrService,private route: ActivatedRoute,private authorityService: AuthorityService) { }
 
   ngOnInit(): void {
     this.authorityService.list().subscribe((authorities: Authority[]) => {
       this.authorities = authorities;
+      this.dtTrigger.next();
     });
   }
 

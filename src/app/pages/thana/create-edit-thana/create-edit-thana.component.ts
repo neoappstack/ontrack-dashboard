@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Thana } from 'src/app/_models/thana';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-edit-thana',
@@ -32,9 +33,10 @@ export class CreateEditThanaComponent implements OnInit {
     private stateService: StateService,
     private router: Router,
     private districtService: DistrictService,
-    private subdivisionService: SubdivisionService) {
-
-  }
+    private subdivisionService: SubdivisionService,
+    private spinner: NgxSpinnerService) {
+      this.spinner.show();
+    }
 
   ngOnInit(): void {
       this.id = this.route.snapshot.paramMap.get('id');
@@ -60,8 +62,11 @@ export class CreateEditThanaComponent implements OnInit {
           this.subdivisionService.findAllSubdivisionUnderDistrict(thana.subdivision.district.id).subscribe((subdivisionList: any) => {
             this.subdivisionList = subdivisionList;
           });
-        })
-      };
+          this.spinner.hide();
+        });
+      }else{
+        this.spinner.hide();
+      }
       this.form = new FormGroup({
         "id": new FormControl(""),
         "code": new FormControl("", Validators.required),

@@ -2,6 +2,7 @@ import { DistrictService } from './../../_services/district.service';
 import { District } from '../../_models/district';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-district',
@@ -11,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DistrictComponent implements OnInit {
 
   districts: District[];
-
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private toastr: ToastrService,
@@ -19,6 +20,7 @@ export class DistrictComponent implements OnInit {
     ) {
     this.districtService.list().subscribe((districts: District[]) => {
       this.districts = districts;
+      this.dtTrigger.next();
     });
     }
 

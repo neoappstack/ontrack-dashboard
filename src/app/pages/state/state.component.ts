@@ -2,6 +2,7 @@ import { StateService } from './../../_services/state.service';
 import { State } from './../../_models/state';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-state',
@@ -11,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 export class StateComponent implements OnInit {
 
   states: State[];
+  dtTrigger: Subject<any> = new Subject<any>();
+
 
 
   constructor(
@@ -19,6 +22,7 @@ export class StateComponent implements OnInit {
     ) {
     this.stateService.list().subscribe((states: State[]) => {
       this.states = states;
+      this.dtTrigger.next();
     });
     }
 

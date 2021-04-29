@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-edit-district',
@@ -26,7 +27,10 @@ export class CreateEditDistrictComponent implements OnInit {
     private route: ActivatedRoute,
     private stateService: StateService,
     private router: Router,
-    private districtService: DistrictService) {}
+    private districtService: DistrictService,
+    private spinner: NgxSpinnerService) {
+      this.spinner.show();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -54,8 +58,11 @@ export class CreateEditDistrictComponent implements OnInit {
     if(this.id != null){
       this.districtService.get(this.id).subscribe((district: any) => {
         this.state =[district.state];
-        this.form.patchValue(district)
+        this.form.patchValue(district);
+        this.spinner.hide();
       })
+    }else{
+      this.spinner.hide();
     }
   }
 

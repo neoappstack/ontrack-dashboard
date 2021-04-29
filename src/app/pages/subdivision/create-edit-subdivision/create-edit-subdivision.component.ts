@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Subdivision } from 'src/app/_models/subdivision';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { DistrictService } from 'src/app/_services/district.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-edit-subdivision',
@@ -29,9 +30,9 @@ export class CreateEditSubdivisionComponent implements OnInit {
     private subdivisionService: SubdivisionService,
     private router: Router,
     private stateService: StateService,
-    private districtService: DistrictService
-    ) {
-
+    private districtService: DistrictService,
+    private spinner: NgxSpinnerService) {
+      this.spinner.show();
     }
 
   ngOnInit(): void {
@@ -53,9 +54,12 @@ export class CreateEditSubdivisionComponent implements OnInit {
           this.states = [subdivision.district.state];
           this.districtService.findAllDistrictForState(subdivision.district.state.id).subscribe((districtList: any) => {
             this.districtList = districtList;
-          }); 
+            this.spinner.hide();
+          });
         })
-      };
+      }else{
+        this.spinner.hide();
+      }
       this.form = new FormGroup({
         "id": new FormControl(""),
         "code": new FormControl("", Validators.required),

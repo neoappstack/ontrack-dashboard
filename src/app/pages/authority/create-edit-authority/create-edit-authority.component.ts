@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { AuthorityService } from 'src/app/_services/authority.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-edit-authority',
@@ -19,7 +20,10 @@ export class CreateEditAuthorityComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private authorityService: AuthorityService) {}
+    private authorityService: AuthorityService,
+    private spinner: NgxSpinnerService) {
+      this.spinner.show();
+  }
 
   form = new FormGroup({
     "id": new FormControl(""),
@@ -39,8 +43,11 @@ export class CreateEditAuthorityComponent implements OnInit {
 
     if(this.id != null){
       this.authorityService.get(this.id).subscribe((authority: any) => {
-        this.form.patchValue(authority)
+        this.form.patchValue(authority);
+        this.spinner.hide();
       })
+    }else{
+      this.spinner.hide();
     }
   }
 

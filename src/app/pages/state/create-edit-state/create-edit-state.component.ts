@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { State } from 'src/app/_models/state';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-edit-state',
@@ -29,15 +30,21 @@ export class CreateEditStateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private stateService: StateService) {}
+    private stateService: StateService,
+    private spinner: NgxSpinnerService) {
+      this.spinner.show();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.pageName = (this.id == null) ? "Create New State" : "Edit State";
     if(this.id != null){
       this.stateService.get(this.id).subscribe((state: any) => {
-        this.form.patchValue(state)
+        this.form.patchValue(state);
+        this.spinner.hide();
       })
+    }else{
+      this.spinner.hide();
     }
   }
 

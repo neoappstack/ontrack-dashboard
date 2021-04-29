@@ -2,6 +2,7 @@ import { Subdivision } from './../../_models/subdivision';
 import { SubdivisionService } from './../../_services/subdivision.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-subdivision',
@@ -11,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class SubdivisionComponent implements OnInit {
 
   subdivisionList: Subdivision[];
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private toastr: ToastrService,
@@ -19,6 +21,7 @@ export class SubdivisionComponent implements OnInit {
 
       this.subdivisionService.list().subscribe((subdivision: Subdivision[]) => {
         this.subdivisionList = subdivision;
+        this.dtTrigger.next();
       });
      }
 
