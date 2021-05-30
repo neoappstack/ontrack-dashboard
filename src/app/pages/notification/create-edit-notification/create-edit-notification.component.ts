@@ -16,6 +16,7 @@ export class CreateEditNotificationComponent implements OnInit {
 
   id: string;
   pageName: string;
+  notificationList = [];
   notification: Observable<Notification>;
   form = new FormGroup({
     "id": new FormControl(""),
@@ -41,8 +42,11 @@ export class CreateEditNotificationComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.pageName = (this.id == null) ? "Create New Notification" : "Edit Notification";
     if(this.id != null){
-      this.notificationService.get(this.id).subscribe((state: any) => {
-        this.form.patchValue(state);
+      this.notificationService.get(this.id).subscribe((notification: any) => {
+        this.form.patchValue(notification);
+        if(notification.config != null){
+          this.updateConfigList(notification.config);
+        }
         this.spinner.hide();
       })
     }else{
@@ -59,6 +63,25 @@ export class CreateEditNotificationComponent implements OnInit {
       this.notificationService.create(this.form.value).subscribe((res: any) => {
           this.router.navigate(['/notification']);
       })
+    }
+  }
+
+  convertToTimeStamp(time: any) : string{
+
+    return parseInt(time/24/60 + "") + " days " + parseInt(time/60%24+"") + ' Hours ' + time%60  + " Min";
+  }
+
+  updateConfigList(value: any): void{
+    let i =1;
+    this.notificationList =[]
+    for(let data of value.split(",").map(Number).sort((a, b) => a - b)){
+      debugger;
+      this.notificationList.push({
+        key: i,
+        rawdata: data,
+        value: this.convertToTimeStamp(data)
+      });
+      i++;
     }
   }
 
