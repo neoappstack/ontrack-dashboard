@@ -42,6 +42,13 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">State</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select State'" [(ngModel)]="states" [settings]="dropdownSettings" [data]="stateList" (onSelect)="onStateSelect($event)" formControlName="states">
+                    </ng-multiselect-dropdown>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
                     <label class="form-control-label" for="input-first-name">District</label>
                     <ng-multiselect-dropdown [placeholder]="'Select District'" [(ngModel)]="districts" [settings]="dropdownSettings" [data]="districtList" (onSelect)="onDistrictSelect($event)" formControlName="districts">
                     </ng-multiselect-dropdown>
@@ -54,8 +61,6 @@
                     </ng-multiselect-dropdown>
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Thana</label>
@@ -70,6 +75,16 @@
                     </ng-multiselect-dropdown>
                   </div>
                 </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Notification Rule</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select Notification Config'" [(ngModel)]="notifications" [settings]="dropdownSettings" [data]="notificationConfigList" formControlName="notifications">
+                    </ng-multiselect-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+
               </div>
               <div class="row">
                 <div class="col-lg-6">

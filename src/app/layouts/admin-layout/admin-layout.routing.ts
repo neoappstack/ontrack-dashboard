@@ -1,3 +1,6 @@
+import { CreateEditNotificationComponent } from './../../pages/notification/create-edit-notification/create-edit-notification.component';
+import { NotificationComponent } from './../../pages/notification/notification.component';
+import { MyTaskComponent } from './../../pages/my-task/my-task.component';
 import { CreateEditStateComponent } from './../../pages/state/create-edit-state/create-edit-state.component';
 import { Routes } from '@angular/router';
 
@@ -37,6 +40,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'task',                 component: TaskComponent },
     { path: 'task/create',          component: CreateEditTaskComponent },
     { path: 'task/edit/:id',        component: CreateEditTaskComponent },
+    { path: 'my-task',              component: MyTaskComponent },
+    { path: 'notification',         component: NotificationComponent },
+    { path: 'notification/create',  component: CreateEditNotificationComponent },
+    { path: 'notification/edit/:id',component: CreateEditNotificationComponent },
     { path: 'task-tree',            component: TaskTreeComponent },
     { path: 'thana',                component: ThanaComponent },
     { path: 'thana/create',         component: CreateEditThanaComponent },

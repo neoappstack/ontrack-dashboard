@@ -36,6 +36,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CreateEditStateComponent } from './pages/state/create-edit-state/create-edit-state.component';
 import { StateComponent } from './pages/state/state.component';
+import { MyTaskComponent } from './pages/my-task/my-task.component';
+import { NotificationComponent } from './pages/notification/notification.component';
+import { CreateEditNotificationComponent } from './pages/notification/create-edit-notification/create-edit-notification.component';
 
 
 @NgModule({
@@ -74,7 +77,10 @@ import { StateComponent } from './pages/state/state.component';
     CreateEditAuthorityComponent,
     CreateEditTaskComponent,
     StateComponent,
-    CreateEditStateComponent
+    CreateEditStateComponent,
+    MyTaskComponent,
+    NotificationComponent,
+    CreateEditNotificationComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

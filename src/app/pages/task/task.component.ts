@@ -1,6 +1,7 @@
 import { TaskService } from './../../_services/task.service';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-task',
@@ -16,7 +17,8 @@ export class TaskComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
-    private taskService:TaskService
+    private taskService:TaskService,
+        private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +29,13 @@ export class TaskComponent implements OnInit {
     this.taskService.list().subscribe((taskList) => {
      this.taskList = taskList;
      this.dtTrigger.next();
+    });
+  }
+
+  removeTask(id):void{
+    this.taskService.remove(id).subscribe((removedId: Number) => {
+      this.taskList = this.taskList.filter(item => item.id !== id);
+      this.toastr.error( 'Task with id ' + removedId + " has been removed.",'Thana Master');
     });
   }
 

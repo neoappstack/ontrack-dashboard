@@ -2,7 +2,7 @@ import { Task } from './../_models/task';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, takeLast } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -12,6 +12,7 @@ export class TaskService {
   }
 
   create(task: Task) {
+    task.state = task.states[0];
     task.assignedTo = task.assignedTos[0];
     task.thana = task.thanas[0];
     task.subdivision = task.subdivisions[0];
@@ -23,10 +24,12 @@ export class TaskService {
   }
 
   update(task: Task) {
+    task.state = task.states[0];
     task.assignedTo = task.assignedTos[0];
     task.thana = task.thanas[0];
     task.subdivision = task.subdivisions[0];
     task.district = task.districts[0];
+    task.notification = task.notifications[0];
     return this.http.put<Task>(`${environment.apiUrl}/api/task/update`, task)
       .pipe(map(taskResponse => {
         return taskResponse;
@@ -42,10 +45,12 @@ export class TaskService {
   get(id: string): Observable<Task> {
     return this.http.get(`${environment.apiUrl}/api/task/findById?id=` + id)
       .pipe(map((task: Task) => {
+        task.states = [task.state]
         task.assignedTos = [task.assignedTo];
         task.thanas = [task.thana]
         task.subdivisions = [task.subdivision];
         task.districts = [task.district];
+        task.notifications = [task.notification];
         return task;
     }));
   }

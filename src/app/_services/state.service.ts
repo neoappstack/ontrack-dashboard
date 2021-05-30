@@ -7,6 +7,9 @@ import { State } from "../_models/state";
 
 @Injectable({ providedIn: 'root' })
 export class StateService {
+  findallState(id: any) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient) {
   }

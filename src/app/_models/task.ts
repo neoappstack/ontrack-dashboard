@@ -1,3 +1,4 @@
+import { State } from 'src/app/_models/state';
 import { User } from './user';
 import { Subdivision } from './subdivision';
 import { District } from './district';
@@ -7,6 +8,8 @@ export class Task {
     code: string;
     name: string;
     description: string;
+    states: State[];
+    state: State;
     districts: District[];
     subdivisions: Subdivision[];
     thanas: Thana[];
@@ -15,6 +18,8 @@ export class Task {
     subdivision: Subdivision;
     thana: Thana;
     assignedTo: User;
+    notification: Notification;
+    notifications: Notification[];
     createdBy: string;
     createdDate: string;
     lastModifiedBy: string;
