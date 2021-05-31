@@ -36,6 +36,7 @@ export class CreateEditTaskComponent implements OnInit {
   assignedTos = [];
   assignedToList = [];
   notificationConfigList=[];
+  notificationEntryList = [];
   notifications = [];
   selectedDistrict;
 
@@ -70,7 +71,7 @@ export class CreateEditTaskComponent implements OnInit {
       this.taskService.get(this.id).subscribe((task: Task) => {
         this.form.patchValue(task);
         this.states = task.states;
-        this.notifications = task.notifications;
+        this.notificationEntryList = task.notificationEntryList;
         debugger;
         this.districtService.findAllDistrictForState(task.state.id).subscribe((districtList: any) => {
           this.districtList = districtList;

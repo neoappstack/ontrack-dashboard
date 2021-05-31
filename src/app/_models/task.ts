@@ -17,6 +17,7 @@ export class Task {
     district: District;
     subdivision: Subdivision;
     thana: Thana;
+    notificationEntryList: [];
     assignedTo: User;
     notification: Notification;
     notifications: Notification[];

@@ -84,9 +84,6 @@
                 </div>
               </div>
               <div class="row">
-
-              </div>
-              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Created By</label>
@@ -114,7 +111,50 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-xl-12">
+                  <div class="card shadow">
+                    <div class="card-header border-0">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <h4 class="mb-0">Notification Schedule</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="table-responsive">
+                      <!-- Projects table -->
+                      <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Scheduled Notification</th>
+                            <th scope="col">Notification Sent</th>
+                            <th scope="col">Notified At</th>  
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of notificationEntryList">
+                            <th scope="row">
+                              {{item.sequenceNo}}
+                            </th>
+                            <td>
+                              {{item.notificationTime}}
+                            </td>
+                            <td [ngClass]="{'text-success': item.notified, 'text-danger': !item.notified}">
+                              {{ item.notified == true ? 'Done' : 'Pending' }}
+                            </td>
+                            <td>
+                              {{item.notifiedAt}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <hr class="my-4" />
             <div class="row">
               <div class="col-lg-6">
@@ -124,6 +164,7 @@
                 <a (click)="onSubmit()" class="btn btn-primary btn-block">{{pageName}}</a>
               </div>
             </div>
+
           </form>
         </div>
       </div>

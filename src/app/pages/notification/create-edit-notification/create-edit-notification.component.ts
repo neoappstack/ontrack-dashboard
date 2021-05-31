@@ -75,7 +75,6 @@ export class CreateEditNotificationComponent implements OnInit {
     let i =1;
     this.notificationList =[]
     for(let data of value.split(",").map(Number).sort((a, b) => a - b)){
-      debugger;
       this.notificationList.push({
         key: i,
         rawdata: data,
@@ -83,6 +82,7 @@ export class CreateEditNotificationComponent implements OnInit {
       });
       i++;
     }
+     this.form.patchValue({"config" :  value.split(",").map(Number).sort((a, b) => a - b).toString()});
   }
 
 }
