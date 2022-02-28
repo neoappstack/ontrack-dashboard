@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://ontrack-api-opyl4.ondigitalocean.app'
+    apiUrl: 'http://localhost:8080'
 };
 
 /*
